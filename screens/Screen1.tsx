@@ -1,11 +1,12 @@
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { StackParamList } from "../typings/navigations";
 import React, { useEffect } from 'react';
 import { Button, FlatList, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { Chatroom, Status } from '../entities/Chatroom';
 import { addChatroom, fetchChatrooms, toggleHappy } from '../store/actions/chat.actions';
-import { StackParamList } from "../typings/navigations";
+
 
 type ScreenNavigationType = NativeStackNavigationProp<
     StackParamList,
