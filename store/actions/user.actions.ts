@@ -4,6 +4,7 @@ import { User } from '../../entities/User';
 
 
 export const SIGNUP = 'SIGNUP';
+export const SIGNUP_FAILED = 'SIGNUP_FAILED';
 export const REHYDRATE_USER = 'REHYDRATE_USER';
 export const LOGOUT = 'LOGOUT';
 
@@ -22,7 +23,7 @@ export const signup = (email: string, password: string) => {
     return async (dispatch: any, getState: any) => {
         //const token = getState().user.token; // if you have a reducer named user(from combineReducers) with a token variable​
 
-        const response = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCwa6vi4jY6Ll_9HmfNW07uz_dlUl3Z3bI', {
+        const response = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAablsQ7RPWYJBkDqGPCTZqfGAp2YA1gGU', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -41,6 +42,8 @@ export const signup = (email: string, password: string) => {
         if (!response.ok) {
             //There was a problem..
             //dispatch({type: SIGNUP_FAILED, payload: 'something'})
+            dispatch({type: SIGNUP_FAILED, payload: response.statusText})
+            console.log(response.statusText)
         } else {
             const data: FirebaseSignupSuccess = await response.json(); // json to javascript
             console.log("data from server", data);
