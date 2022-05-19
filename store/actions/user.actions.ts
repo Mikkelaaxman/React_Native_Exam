@@ -5,14 +5,13 @@ import { User } from '../../entities/User';
 const api_key = "AIzaSyAablsQ7RPWYJBkDqGPCTZqfGAp2YA1gGU"
 
 export const SIGNUP = 'SIGNUP';
-export const SIGNUP_FAILED = 'SIGNUP_FAILED';
-export const REHYDRATE_USER = 'REHYDRATE_USER';
 export const LOGOUT = 'LOGOUT';
 export const LOGIN = "LOGIN";
-export const LOGIN_FAILED = "LOGIN_FAILED"
+export const ERROR = 'ERROR';
+export const REHYDRATE_USER = 'REHYDRATE_USER';
 export const REFRESH_TOKEN = 'REFRESH_TOKEN';
 
-export const rehydrateUser = (user: User, idToken: string) => {
+export const rehydrateUser = (user: any, idToken: any) => {
     return { type: REHYDRATE_USER, payload: { user, idToken } }
 }
 
@@ -42,12 +41,12 @@ export const signup = (email: string, password: string) => {
             })
         });
 
-        // console.log(response.json());
+         console.log(response.json());
 
         if (!response.ok) {
             //There was a problem..
             //dispatch({type: SIGNUP_FAILED, payload: 'something'})
-            dispatch({ type: SIGNUP_FAILED, payload: response.statusText })
+            //dispatch({ type: ERROR, payload: response.statusText })
             console.log("response error?: " + JSON.stringify(response))
 
         } else {
@@ -79,13 +78,13 @@ export const login = (email: string, password: string) => {
                 returnSecureToken: true
             })
         });
-
+        
+        const data = await response.json(); // json to javascript
         if (!response.ok) {
             //There was a problem..
-            dispatch({ type: LOGIN_FAILED, payload: response.statusText })
-            console.log("response error?: " + JSON.stringify(response))
+            dispatch({ type: ERROR, payload: data.error.message })
+            console.log("response error?: " + JSON.stringify(response.statusText))
         } else {
-            const data = await response.json(); // json to javascript
             console.log("Login data from server", data);
 
             const user = new User(data.email, "", "", data.id);
@@ -98,7 +97,7 @@ export const login = (email: string, password: string) => {
             await SecureStore.setItemAsync('expiration', JSON.stringify(expiration));
             await SecureStore.setItemAsync('refreshToken', data.refreshToken);
 
-            dispatch({ type: SIGNUP, payload: { user, idToken: data.idToken } })
+            dispatch({ type: LOGIN, payload: { user, idToken: data.idToken } })
         }
 
     }
@@ -121,11 +120,12 @@ export const refreshToken = (refreshToken: any) => {
 
 
         if (!response.ok) {
-            //There was a problem..
+            dispatch({ type: ERROR, payload: response.statusText })
+            console.log("response error?: " + JSON.stringify(response))
         } else {
             const data = await response.json();
             console.log("Data after refresh: " + data);
-            dispatch({ type: REFRESH_TOKEN, payload: data.id_token })
+            dispatch({ type: REFRESH_TOKEN, payload: data.idToken })
         }
     };
 }

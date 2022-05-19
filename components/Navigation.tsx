@@ -5,7 +5,9 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
 import { RootState } from '../App';
+import AllPostsScreen from '../screens/AllPostsScreen';
 import HomeScreen from '../screens/HomeScreen';
+import LoginScreen from '../screens/LoginScreen';
 import SignupScreen from '../screens/SignupScreen';
 import Screen1 from './../screens/Screen1';
 import Screen2 from './../screens/Screen2';
@@ -39,15 +41,15 @@ export default function Navigation() {
                 // Show the app with all navigation
                 <Tab.Navigator screenOptions={{ headerShown: false }}>
                     <Tab.Screen name="Home" component={HomeScreen} />
-                    {/* <Tab.Screen name="Discover" component={DiscoverScreen} /> */}
+                    <Tab.Screen name="Post" component={AllPostsScreen} />
                     <Tab.Screen name="Chat" component={ChatStackNavigator} />
                     {/* <Tab.Screen name="Menu" component={MenuScreen} /> */}
                 </Tab.Navigator>
             ) : (
                 // show a stack navigator with only signup and login screens.
                 <Stack.Navigator>
-                    <Stack.Screen name="Signup" component={SignupScreen} />
-                    {/* <Stack.Screen name="Login" component={LoginScreen} /> */}
+                    <Stack.Screen name="SignupScreen" component={SignupScreen} />
+                    {<Stack.Screen name="LoginScreen" component={LoginScreen} />}
                 </Stack.Navigator>
             )}
         </NavigationContainer>

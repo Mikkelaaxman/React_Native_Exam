@@ -1,33 +1,31 @@
-import { SET_POSTS, ADD_COMMENT, LIKE_COMMENT } from "../actions/post.actions";
+import Post from "../../entities/Post";
+import { SET_POSTS, ADD_COMMENT, LIKE_COMMENT, DELETE_POST } from "../actions/post.actions";
 
 interface ReduxState {
-    posts: Posts[]
-    isHappy: boolean
-    counter: number
-    name: string
+    posts: Post[]
 }
 
 const initialState: ReduxState = {
     posts: [],
-    isHappy: false,
-    counter: 0,
-    name: "Peter"
 }
 
 interface ReduxAction {
     type: string,
-    payload?: boolean | number | string | Posts
+    payload: Post | any
 }
 
-export default (state: ReduxState = initialState, action: ReduxAction) => {
+const postReducer = (state: ReduxState = initialState, action: ReduxAction) => {
     switch (action.type) {
         case ADD_COMMENT:
-            console.log("hi from reducer");
-            const postIndex = state.posts.findIndex((post) => post.id === action.postId);
-            const updatedPost = state.posts.find((post == post.id) == action.postId);
-            updatedPost.comments.push(action.newComment);
-            const updatedPosts = [...state.posts];
-            updatedPost[postIndex] = updatedPost;
+            console.log("add comment reducer trigger");
+            
+            // find post position 
+            const postIndex = state.posts.findIndex((post) => post.id === action.payload.postId);
+            // 
+            const updatedPost = state.posts.find(post => post.id === action.payload.postId);
+           // updatedPost?.comments.push(action.payload.newComment);
+            const updatedPosts = [...state.posts, action.payload.postObj];
+            updatedPosts[postIndex] = updatedPost;
 
             return {
                 posts: updatedPosts,
@@ -35,10 +33,16 @@ export default (state: ReduxState = initialState, action: ReduxAction) => {
         case LIKE_COMMENT:
             console.log("like comment reducer");
         case SET_POSTS:
-            return {
-                posts: action.posts,
+            return { ...state,
+                posts: action.payload.posts,
             };
+        case DELETE_POST:
+            return { ...state, posts:
+                state.posts.filter(post => post.id !== action.payload)
+            }
         default:
             return state;
     }
 };
+
+export default postReducer;

@@ -4,4 +4,6 @@ export type StackParamList = {
     Screen3: undefined;
     SignupScreen: undefined;
     LoginScreen: undefined;
+    AllPostsScreen: undefined;
+    SinglePostScreen: undefined;
 }

@@ -1,3 +1,4 @@
+//I chose to make this component the old-school model way, for visibility. 
 class Post {
     id: string;
     authorName: string;
@@ -8,9 +9,9 @@ class Post {
     category: string;
     imageUrl: string;
     likes: number;
-    comments: string;
+    comments: [Comment];
 
-    constructor(id: string, authorName: string, authorImageUrl: string, title: string, date: Date, body: string, category: string, imageUrl: string, likes: number, comments: string) {
+    constructor(id: string, authorName: string, authorImageUrl: string, title: string, date: Date, body: string, category: string, imageUrl: string, likes: number, comments: [Comment]) {
         this.id = id;
         this.authorName = authorName;
         this.authorImageUrl = authorImageUrl;
@@ -32,5 +33,6 @@ class Post {
     }
 }
 
-
+//"Exporting without default means it's a "named export". 
+//You can have multiple named exports in a single file"
 export default Post;
