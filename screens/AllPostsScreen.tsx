@@ -11,16 +11,18 @@ const AllPostsScreen = (props: any) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [error, setError] = useState("");
-  const posts = useSelector((state: any) => state.posts.posts);
+  const posts = useSelector((state: any) => state.posts.posts); //or just post? 
 
   //function for loading posts
   const loadPosts = useCallback(async () => {
     setError("");
     setIsRefreshing(true);
     try {
+      console.log("before fetch post")
       await dispatch(postsActions.fetchPosts());
     } catch (error:any) {
       setError(error.message);
+      console.log(error.message);
     }
     setIsRefreshing(false);
   }, [dispatch, setIsLoading, setError]);

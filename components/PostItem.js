@@ -1,5 +1,12 @@
 import React from "react";
-import { Text, View, StyleSheet, Button, Image, TouchableOpacity } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Button,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 const PostItem = (props) => {
@@ -7,13 +14,19 @@ const PostItem = (props) => {
     <TouchableOpacity onPress={props.onViewDetail}>
       <View>
         <View style={styles.container}>
-          {props.imageUrl ? <Image style={styles.image} source={{ uri: props.imageUrl }} /> : null}
+          {props.imageUrl ? (
+            <Image style={styles.image} source={{ uri: props.imageUrl }} />
+          ) : null}
           <View style={styles.wrapper}>
             <View>
               <Text style={styles.topic}>Blog</Text>
             </View>
             <View>
-              <Text numberOfLines={2} onPress={props.onViewDetail} style={styles.headline}>
+              <Text
+                numberOfLines={2}
+                onPress={props.onViewDetail}
+                style={styles.headline}
+              >
                 {props.title}
               </Text>
               <Text numberOfLines={4} style={styles.description}>
@@ -25,16 +38,29 @@ const PostItem = (props) => {
                 <Text style={styles.date}>{props.date}</Text>
                 <View style={styles.detailsWrapper}>
                   <Text style={styles.likes}>
-                    <Ionicons name="thumbs-up-sharp" size={14} color="#5050A5" /> {props.likes}
+                    <Ionicons
+                      name="thumbs-up-sharp"
+                      size={14}
+                      color="#5050A5"
+                    />{" "}
+                    {props.likes}
                   </Text>
                   <Text style={styles.comments}>
-                    <Ionicons name="chatbox-ellipses-sharp" size={14} color="#5050A5" /> {props.comments}
+                    <Ionicons
+                      name="chatbox-ellipses-sharp"
+                      size={14}
+                      color="#5050A5"
+                    />{" "}
+                    {props.comments}
                   </Text>
                 </View>
               </View>
               <View style={styles.hr}></View>
               <View style={styles.wrapperBottom}>
-                <Image style={styles.imgSmall} source={{ uri: props.authorImageUrl }} />
+                <Image
+                  style={styles.imgSmall}
+                  source={{ uri: props.authorImageUrl }}
+                />
                 <Text style={styles.author}>{props.authorName}</Text>
               </View>
             </View>

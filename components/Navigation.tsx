@@ -9,8 +9,8 @@ import AllPostsScreen from '../screens/AllPostsScreen';
 import HomeScreen from '../screens/HomeScreen';
 import LoginScreen from '../screens/LoginScreen';
 import SignupScreen from '../screens/SignupScreen';
-import Screen1 from './../screens/Screen1';
-import Screen2 from './../screens/Screen2';
+import ChatRooms from './../screens/ChatRoomsScreen';
+import Screen2 from './../screens/ChatScreen';
 import Screen3 from './../screens/Screen3';
 import { StackParamList } from "./../typings/navigations";
 
@@ -20,8 +20,8 @@ const Tab = createBottomTabNavigator();
 function ChatStackNavigator() {
     return (
         <Stack.Navigator>
-            <Stack.Screen name="Screen1" component={Screen1} />
-            <Stack.Screen name="Screen2" component={Screen2} />
+            <Stack.Screen name="ChatRoomsScreen" component={ChatRooms} />
+            <Stack.Screen name="ChatScreen" component={Screen2} />
             <Stack.Screen name="Screen3" component={Screen3} />
         </Stack.Navigator>
     );
@@ -30,7 +30,7 @@ function ChatStackNavigator() {
 
 export default function Navigation() {
     const user = useSelector((state: RootState) => state.user.loggedInUser)
-
+    
     return (
         <NavigationContainer>
             {/* Move navigation related code to a seperate component that is used here */}

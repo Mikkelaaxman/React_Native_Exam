@@ -1,6 +1,6 @@
 //I chose to make this component the old-school model way, for visibility. 
 class Post {
-    id: string;
+    id?: string;
     authorName: string;
     authorImageUrl: string;
     title: string;
@@ -9,9 +9,9 @@ class Post {
     category: string;
     imageUrl: string;
     likes: number;
-    comments: [Comment];
+    comments: Comment;
 
-    constructor(id: string, authorName: string, authorImageUrl: string, title: string, date: Date, body: string, category: string, imageUrl: string, likes: number, comments: [Comment]) {
+    constructor(id: string, authorName: string, authorImageUrl: string, title: string, date: Date, body: string, category: string, imageUrl: string, likes: number, comments: Comment) {
         this.id = id;
         this.authorName = authorName;
         this.authorImageUrl = authorImageUrl;

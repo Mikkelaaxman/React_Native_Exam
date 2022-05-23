@@ -1,0 +1,70 @@
+{
+    "1": {
+        "authorImageUrl": "https://media-exp1.licdn.com/dms/image/C5603AQF4yTr3ZLUOAQ/profile-displayphoto-shrink_800_800/0/1622278247972?e=1658361600&v=beta&t=hGwLEoEQfDRMP_RAs1ZeZi0pRAa-tmux0jLFwnqQ4ow",
+        "authorName": "Dev Tester",
+        "body": "Body test",
+        "category": "Category test",
+        "comments": [
+            {
+                "authorId": "u1",
+                "authorImageUrl": "https://randomuser.me/api/portraits/men/50.jpg",
+                "body": "I love that",
+                "date": "2021-04-28T08:42:21.098Z",
+                "likes": [
+                    "u2"
+                ]
+            },
+            {
+                "authorId": "u2",
+                "authorImageUrl": "https://randomuser.me/api/portraits/men/40.jpg",
+                "body": "Totally agree!",
+                "date": "2021-04-28T08:42:21.098Z",
+                "likes": [
+                    "u1",
+                    "u3"
+                ]
+            }
+        ],
+        "date": "2021-04-10T08:42:21.098Z",
+        "imageUrl": "https://www.cbs.dk/files/cbs.dk/styles/cbs_content/public/shutterstock_574382113_633x333px_2.jpg?itok=zaJ_sLsi",
+        "likes": [
+            "u1",
+            "u2"
+        ],
+        "title": "Hello test"
+    },
+    "2": {
+        "authorImageUrl": "https://media-exp1.licdn.com/dms/image/C5603AQF4yTr3ZLUOAQ/profile-displayphoto-shrink_800_800/0/1622278247972?e=1658361600&v=beta&t=hGwLEoEQfDRMP_RAs1ZeZi0pRAa-tmux0jLFwnqQ4ow",
+        "authorName": "Dev Tester 2",
+        "body": "Body test 2",
+        "category": "Category test 2",
+        "comments": [
+            {
+                "authorId": "u1",
+                "authorImageUrl": "https://randomuser.me/api/portraits/men/50.jpg",
+                "body": "This 2",
+                "date": "2021-04-28T08:42:21.098Z",
+                "likes": [
+                    "u2"
+                ]
+            },
+            {
+                "authorId": "u2",
+                "authorImageUrl": "https://randomuser.me/api/portraits/men/40.jpg",
+                "body": "Totally agree! 2",
+                "date": "2021-04-28T08:42:21.098Z",
+                "likes": [
+                    "u1",
+                    "u3"
+                ]
+            }
+        ],
+        "date": "2021-04-10T08:42:21.098Z",
+        "imageUrl": "https://www.cbs.dk/files/cbs.dk/styles/cbs_content/public/shutterstock_574382113_633x333px_2.jpg?itok=zaJ_sLsi",
+        "likes": [
+            "u1",
+            "u2"
+        ],
+        "title": "Hello test 2"
+    }
+}

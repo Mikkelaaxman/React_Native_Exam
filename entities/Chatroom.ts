@@ -1,8 +1,15 @@
+
 export class Chatroom {
-    constructor(public title: string, public status: Status,
-        public message: string, public timestamp: Date, public id?: string,) { }
+  constructor(
+    public title: string,
+    public status: Status,
+    public timestamp: Date,
+    public messages?: any[],
+    public id?: string
+  ) {}
 }
 
 export enum Status {
-    READ = "READ", UNREAD = "UNREAD"
+  READ = "READ",
+  UNREAD = "UNREAD",
 }
