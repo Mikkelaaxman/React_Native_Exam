@@ -18,7 +18,6 @@ import {
   addChatroom,
   deleteChatroom,
   fetchChatrooms,
-  toggleHappy,
 } from "../store/actions/chat.actions";
 import DefaultStyles from "../constants/DefaultStyles";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -32,8 +31,7 @@ export default function ChatRooms() {
   const navigation = useNavigation<ScreenNavigationType>();
   const [title, onChangeTitle] = React.useState("");
 
-  /*     const isHappy = useSelector((state: any) => state.chat.isHappy) // subscribe to redux store and select attribute (isHappy)
-   */ const chatrooms: Chatroom[] = useSelector(
+   const chatrooms: Chatroom[] = useSelector(
     (state: any) => state.chat.chatrooms
   );
 
@@ -41,15 +39,16 @@ export default function ChatRooms() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // only runs dispatch the first time the component renders
     dispatch(fetchChatrooms());
   }, []);
 
-  //Maybe set title to user and date
+  //Maybe set title to user and date?
   const handleAddChatroom = () => {
     const chatroom: Chatroom = new Chatroom(title, Status.UNREAD, new Date());
     dispatch(addChatroom(chatroom));
   };
+
+  //called by the Alert below
   const handleDeleteChatroom = (id: string) => {
     dispatch(deleteChatroom(id));
   };
@@ -62,9 +61,9 @@ export default function ChatRooms() {
         {
           text: "Delete Chatroom",
           onPress: () => handleDeleteChatroom(id),
-        },
+        },  //We could add another button here
       ],
-      { cancelable: true }
+      { cancelable: true }  //Cool way to cancel!
     );
 
   //Make pretty
@@ -72,7 +71,6 @@ export default function ChatRooms() {
     <SafeAreaView >
       <Button
         title={item.title}
-        
         onPress={() => navigation.navigate("ChatScreen", {id: item.id}) } //sending chatroom ID as param
       />
       <Button
@@ -85,7 +83,6 @@ export default function ChatRooms() {
 
   return (
     <View style={styles.container}>
-      <Text>Chatrooms</Text>
 
       <FlatList data={chatrooms} renderItem={renderChatroom} />
 
@@ -107,4 +104,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+
 });

@@ -54,7 +54,6 @@ export default function Navigation() {
             <Tab.Screen name="Home" component={HomeScreen} />
             <Tab.Screen name="Post" component={PostStackNavigator} />
             <Tab.Screen name="Chat" component={ChatStackNavigator} />
-            {/* <Tab.Screen name="Menu" component={MenuScreen} /> */}
           </Tab.Navigator>
         ) : (
           // show a stack navigator with only signup and login screens.

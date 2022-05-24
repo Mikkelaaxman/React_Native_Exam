@@ -33,7 +33,6 @@ const postReducer = (state: ReduxState = initialState, action: ReduxAction) => {
         case LIKE_COMMENT:
             console.log("like comment reducer");
         case FETCH_POSTS:
-            console.log("Fetched Posts: " + action.payload)
             return { ...state,
                 posts: action.payload,
             };

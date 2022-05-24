@@ -23,7 +23,7 @@ import Navigation from "../components/Navigation";
 type ScreenNavigationType = NativeStackNavigationProp<
   StackParamList,
   "ChatScreen"
->;
+>; //Bruges ikke?
 
 export default function ChatScreen() {
   const navigation = useNavigation<ScreenNavigationType>();
@@ -43,38 +43,37 @@ export default function ChatScreen() {
 
   const [value, onChangeText] = useState("Write message");
 
-  //const chatMessages = ChatRooms.find(room => room.chatRoomId === id).messages;
+  //const chatMessages = ChatRooms.find(room => room.id === id).messages;
   const chatMessages: any = useSelector(
     (state: RootState) => state.chat.chatrooms
   ).find((room: any) => room.id == roomId).messages;
-          console.log("ANY USERNAME`?: ");
 
   console.log(chatMessages);
   const loggedInUser = useSelector(
     (state: RootState) => state.user.loggedInUser
   );
 
+  //Laver ny besked og dispatcher til chat actions 
   const handleSend = () => {
     const message = new Message(loggedInUser.email, value, new Date());
     dispatch(newChatMessage(roomId, message));
-    console.log("value message " + value);
   };
-
+  
   useEffect(() => {
-    // only runs dispatch the first time the component renders
     dispatch(fetchChatrooms());
   }, []);
+
 
   return (
     <View style={styles.container}>
       <View style={styles.messages}>
-        <Text>Message will be here</Text>
+        <Text>Begin chatting here</Text>
         <FlatList
           data={chatMessages}
           renderItem={(itemData) => (
             <ChatMessage
               chatmessage={itemData.item}
-              image={require("./../assets/favicon.png")}
+              image={require("./../assets/cbs.png")}
             ></ChatMessage>
           )}
            keyExtractor={(item) => item.id}
@@ -113,7 +112,7 @@ const styles = StyleSheet.create({
   textInput: {
     flex: 1,
     height: 40,
-    backgroundColor: "darkgrey",
+    backgroundColor: "white",
     marginLeft: 10,
     borderRadius: 5,
     padding: 10,

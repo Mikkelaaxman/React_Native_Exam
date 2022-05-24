@@ -46,8 +46,8 @@ const Comment = (props:any) => {
                 </View>
             </View>
             <TouchableHighlight onPress={handleLikeComment} style={isLiked ? styles.liked : styles.like}>
-                <Ionicons style={styles.icon} name="thumbs-up-outline" />
-            </TouchableHighlight>
+{/*                 <Ionicons style={styles.icon} name="thumbs-up-outline" />
+ */}            </TouchableHighlight>
         </View>
     );
 };

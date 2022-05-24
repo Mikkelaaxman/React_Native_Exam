@@ -1,4 +1,3 @@
-//I chose to make this component the old-school model way, for visibility. 
 class Post {
   authorName: string;
   authorImageUrl: string;
