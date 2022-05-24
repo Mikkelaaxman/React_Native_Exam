@@ -30,23 +30,23 @@ export const fetchPosts = () => {
       }
       const responseData = await response.json();
       const loadedPosts = [];
-      console.log("fetching posts: " + responseData);
-
+      
       for (const key in responseData) {
+        console.log("fetching posts: " + responseData[key]);
         const obj = responseData[key];
 
         loadedPosts.push(
           new Post(
-            obj.id,
-            obj.authorName,
             obj.authorImageUrl,
+            obj.authorName,
             obj.title,
             new Date(obj.date),
             obj.body,
             obj.category,
             obj.imageUrl,
             obj.likes,
-            obj.comments
+            obj.comments,
+            key,
             
           )
         );
@@ -218,7 +218,6 @@ export const deletePost = (id: string) => {
       for (const key in responseData) {
         loadedPosts.push(
           new Post(
-            key,
             responseData[key].authorName,
             responseData[key].authorImageUrl,
             responseData[key].title,
@@ -227,7 +226,8 @@ export const deletePost = (id: string) => {
             responseData[key].category,
             responseData[key].imageUrl,
             responseData[key].likes,
-            responseData[key].comments
+            responseData[key].comments,
+            key
           )
         );
       }

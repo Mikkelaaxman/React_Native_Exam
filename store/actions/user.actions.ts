@@ -120,7 +120,7 @@ export const refreshToken = (refreshToken: any) => {
 
 
         if (!response.ok) {
-            dispatch({ type: ERROR, payload: response.statusText })
+            //dispatch({ type: ERROR, payload: response.statusText })
             console.log("response error?: " + JSON.stringify(response))
         } else {
             const data = await response.json();

@@ -16,7 +16,11 @@ const userReducer = (state: ReduxState = initialState, action: any) => {
         case LOGOUT:
             return { ...state, loggedInUser: null, idToken: undefined }
         case REHYDRATE_USER:
+            console.log("user rehydrated")
             return { ...state, loggedInUser: action.payload.user, idToken: action.payload.idToken }
+        case REFRESH_TOKEN:
+            console.log("Token Refreshed")
+            return{ ...state, idToken: action.payload }
         case SIGNUP:
             // const user = new User(action.payload.email, '', '');
             //state.loggedInUser = user; // MUTATION!!!!

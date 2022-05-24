@@ -13,7 +13,7 @@ const SinglePostScreen = (props:any) => {
   const [inputText, setInputText] = useState("Add a comment");
   const [isFocused, setIsFocused] = useState(false);
   const postId = props.route.params.postId;
-  const userId = useSelector((state:any) => state.loggedInUser);
+  const userId = useSelector((state:any) => state.user.loggedInUser);
   const selectedPost = useSelector((state:any) => state.posts.find((post:any) => post.id === postId));
   const dispatch = useDispatch();
 
@@ -131,7 +131,9 @@ const SinglePostScreen = (props:any) => {
           {isFocused && (
             <View style={styles.buttonView}>
               <TouchableHighlight onPress={submitNewComment}>
-  {/*               <Ionicons
+  {
+  <Text> submit </Text>
+  /*               <Ionicons
                   style={styles.buttonElement}
                   name="chatbox-ellipses"
                   size={22}

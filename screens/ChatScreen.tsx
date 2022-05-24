@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -8,38 +8,67 @@ import {
   Image,
   TextInput,
 } from "react-native";
-import ChatRooms from "../dummy_data/chatrooms.json";
 import ChatMessage from "./../components/ChatMessage";
 import { RootState } from "../App";
 
 import { useDispatch, useSelector } from "react-redux";
-import { newChatMessage } from "../store/actions/chat.actions";
+import { fetchChatrooms, newChatMessage } from "../store/actions/chat.actions";
 import { signup } from "../store/actions/user.actions";
 import { Message } from "../entities/Message";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { StackParamList } from "../typings/navigations";
+import Navigation from "../components/Navigation";
 
-const ChatScreen = (props:any) => {
+type ScreenNavigationType = NativeStackNavigationProp<
+  StackParamList,
+  "ChatScreen"
+>;
+
+export default function ChatScreen() {
+  const navigation = useNavigation<ScreenNavigationType>();
+  
+  //Her er den mest besværlige måde at få route.params på! 
+  const route = useRoute().params;
+  type ObjectKey = keyof typeof route;
+  let roomId = "";
+  const id = "id" as ObjectKey;
+  if (route != undefined) {
+    roomId = route[id];
+  }
+
+  console.log("Route ID is " + roomId);
+
   const dispatch = useDispatch();
 
-  const { id } = props.route.params;
-  // console.log(id);
   const [value, onChangeText] = useState("Write message");
-  // console.log(ChatRooms);
 
   //const chatMessages = ChatRooms.find(room => room.chatRoomId === id).messages;
-  const chatMessages: any = useSelector((state: RootState) => state.chat.chatrooms).find(
-    (room: any) => room.chatRoomId === id
-  ).messages;
-  const loggedInUser = useSelector((state: RootState) => state.user.loggedInUser);
+  const chatMessages: any = useSelector(
+    (state: RootState) => state.chat.chatrooms
+  ).find((room: any) => room.id == roomId).messages;
+          console.log("ANY USERNAME`?: ");
+
+  console.log(chatMessages);
+  const loggedInUser = useSelector(
+    (state: RootState) => state.user.loggedInUser
+  );
 
   const handleSend = () => {
-    const message = new Message("", value, new Date(), loggedInUser);
-    dispatch(newChatMessage(id, message));
+    const message = new Message(loggedInUser.email, value, new Date());
+    dispatch(newChatMessage(roomId, message));
     console.log("value message " + value);
   };
+
+  useEffect(() => {
+    // only runs dispatch the first time the component renders
+    dispatch(fetchChatrooms());
+  }, []);
 
   return (
     <View style={styles.container}>
       <View style={styles.messages}>
+        <Text>Message will be here</Text>
         <FlatList
           data={chatMessages}
           renderItem={(itemData) => (
@@ -48,7 +77,7 @@ const ChatScreen = (props:any) => {
               image={require("./../assets/favicon.png")}
             ></ChatMessage>
           )}
-          keyExtractor={(item) => item.messageId}
+           keyExtractor={(item) => item.id}
         ></FlatList>
       </View>
 
@@ -59,6 +88,9 @@ const ChatScreen = (props:any) => {
         />
 
         <TextInput
+          onFocus={() => {
+            onChangeText("");
+          }}
           style={styles.textInput}
           onChangeText={(text) => onChangeText(text)}
           value={value}
@@ -68,7 +100,7 @@ const ChatScreen = (props:any) => {
       </View>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -81,7 +113,7 @@ const styles = StyleSheet.create({
   textInput: {
     flex: 1,
     height: 40,
-    backgroundColor: "lightgray",
+    backgroundColor: "darkgrey",
     marginLeft: 10,
     borderRadius: 5,
     padding: 10,
@@ -97,5 +129,3 @@ const styles = StyleSheet.create({
     marginTop: -5,
   },
 });
-
-export default ChatScreen;

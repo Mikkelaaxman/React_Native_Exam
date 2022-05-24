@@ -19,7 +19,7 @@ const PostItem = (props) => {
           ) : null}
           <View style={styles.wrapper}>
             <View>
-              <Text style={styles.topic}>Blog</Text>
+              <Text style={styles.topic}>Posts</Text>
             </View>
             <View>
               <Text
@@ -38,19 +38,19 @@ const PostItem = (props) => {
                 <Text style={styles.date}>{props.date}</Text>
                 <View style={styles.detailsWrapper}>
                   <Text style={styles.likes}>
-                    <Ionicons
+{/*                     <Ionicons
                       name="thumbs-up-sharp"
                       size={14}
                       color="#5050A5"
-                    />{" "}
+                    />{" "} */}
                     {props.likes}
                   </Text>
                   <Text style={styles.comments}>
-                    <Ionicons
+{/*                     <Ionicons
                       name="chatbox-ellipses-sharp"
                       size={14}
                       color="#5050A5"
-                    />{" "}
+                    />{" "} */}
                     {props.comments}
                   </Text>
                 </View>
@@ -59,8 +59,8 @@ const PostItem = (props) => {
               <View style={styles.wrapperBottom}>
                 <Image
                   style={styles.imgSmall}
-                  source={{ uri: props.authorImageUrl }}
-                />
+/*                   source={{ uri: props.authorImageUrl }}
+ */                />
                 <Text style={styles.author}>{props.authorName}</Text>
               </View>
             </View>

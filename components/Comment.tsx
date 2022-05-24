@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.highlight,
     },
     icon: {
-        size: 12,
+        //size: 12,
         color: Colors.grayText
     },
 });

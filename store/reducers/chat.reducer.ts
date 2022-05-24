@@ -2,24 +2,17 @@ import { Chatroom } from "../../entities/Chatroom";
 import {
   ADD_CHATROOM,
   FETCH_CHATROOMS,
-  TOGGLE_HAPPY,
   NEW_MESSAGE,
+  DELETE_CHATROOM
 } from "../actions/chat.actions";
 
 interface ReduxState {
-  chatrooms: Chatroom[];
-  isHappy: boolean;
-  counter: number;
-  name: string;
-  id: string;
+  chatrooms: any[];
+
 }
 
 const initialState: ReduxState = {
   chatrooms: [],
-  isHappy: false,
-  counter: 0,
-  name: "Peter",
-  id: "",
 };
 
 interface ReduxAction {
@@ -29,13 +22,9 @@ interface ReduxAction {
 
 const chatReducer = (state: ReduxState = initialState, action: ReduxAction) => {
   switch (action.type) {
-    case TOGGLE_HAPPY:
-      console.log("Happy");
-
-      return { ...state, isHappy: !state.isHappy };
 
     case ADD_CHATROOM:
-      console.log(action.payload);
+      console.log("added payload:"+action.payload);
       return { ...state, chatrooms: [...state.chatrooms, action.payload] };
     // state.chatrooms.push(chatroom) // mutating state. Not allowed
 
@@ -70,8 +59,15 @@ const chatReducer = (state: ReduxState = initialState, action: ReduxAction) => {
 
       chatroomArray.splice(index, 1, newChatRoom);
 
-      return { ...state, chatRooms: chatroomArray };
+      return { ...state, chatrooms: chatroomArray };
 
+      case DELETE_CHATROOM:
+        return {
+          ...state,
+          chatrooms: state.chatrooms.filter(
+            (room) => room.id !== action.payload
+          ),
+        };
     default:
       return state;
   }

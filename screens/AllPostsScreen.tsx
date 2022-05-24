@@ -59,7 +59,7 @@ const AllPostsScreen = (props: any) => {
         <ActivityIndicator size="large" color={Colors.highlight} />
       </View>
     );
-  }
+  } 
 
   return (
     <FlatList
@@ -78,7 +78,7 @@ const AllPostsScreen = (props: any) => {
           authorName={itemData.item.authorName}
           authorImageUrl={itemData.item.authorImageUrl}
           onViewDetail={() => {
-            props.navigation.navigate("PostDetailScreen", { postId: itemData.item.id, postTitle: itemData.item.title });
+            props.navigation.navigate("SinglePostScreen", { postId: itemData.item.id, postTitle: itemData.item.title });
           }}
         />
       )}
