@@ -51,7 +51,7 @@ export const signup = (email: string, password: string) => {
 
         } else {
             const data: FirebaseSignupSuccess = await response.json(); // json to javascript
-            console.log("data from server", data);
+            console.log("Signup data from server", data);
 
             const user = new User(data.email, '', '');
 

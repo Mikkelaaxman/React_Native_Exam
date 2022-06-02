@@ -123,7 +123,7 @@ export const newChatMessage = (chatRoomId: string, message: Message) => {
       console.log("Error in posting message: " + response.json);
     } else {
       // do something?
-
+      console.log(data)
       message.id = data.name;
 
       dispatch({

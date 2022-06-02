@@ -13,13 +13,13 @@ class Post {
   constructor(
     authorImageUrl: string,
     authorName: string,
-    title: string,
-    date: Date,
     body: string,
     category: string,
+    comments: any,
+    date: Date,
     imageUrl: string,
-    likes: number,
-    comments: Comment,
+    likes: any,
+    title: string,
     id: string
   ) {
       this.authorImageUrl = authorImageUrl;

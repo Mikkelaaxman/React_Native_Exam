@@ -38,7 +38,7 @@ const PostItem = (props) => {
                 <Text style={styles.date}>{props.date}</Text>
                 <View style={styles.detailsWrapper}>
                   <Text style={styles.likes}>
-{/*                     <Ionicons
+                    {/*                     <Ionicons
                       name="thumbs-up-sharp"
                       size={14}
                       color="#5050A5"
@@ -46,7 +46,7 @@ const PostItem = (props) => {
                     {props.likes}
                   </Text>
                   <Text style={styles.comments}>
-{/*                     <Ionicons
+                    {/*                     <Ionicons
                       name="chatbox-ellipses-sharp"
                       size={14}
                       color="#5050A5"
@@ -59,8 +59,8 @@ const PostItem = (props) => {
               <View style={styles.wrapperBottom}>
                 <Image
                   style={styles.imgSmall}
-/*                   source={{ uri: props.authorImageUrl }}
- */                />
+                  source={{ uri: props.authorImageUrl }}
+                />
                 <Text style={styles.author}>{props.authorName}</Text>
               </View>
             </View>
@@ -100,13 +100,11 @@ const styles = StyleSheet.create({
     fontSize: 26,
     color: "#333333",
     marginBottom: 5,
-    fontFamily: "Teko_700Bold",
   },
   description: {
     fontSize: 16,
     color: "#333333",
     overflow: "hidden",
-    fontFamily: "OpenSans_400Regular",
   },
   topic: {
     color: "#5050A5",
@@ -151,13 +149,11 @@ const styles = StyleSheet.create({
   },
   comments: {
     color: "#5050A5",
-    fontFamily: "OpenSans_700Bold",
     fontSize: 14,
   },
   likes: {
     marginRight: 20,
     color: "#5050A5",
-    fontFamily: "OpenSans_700Bold",
     fontSize: 14,
   },
 });

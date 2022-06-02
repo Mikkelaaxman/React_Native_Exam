@@ -14,6 +14,7 @@ const rootReducer = combineReducers({
 });
 export type RootState = ReturnType<typeof rootReducer>;
 
+//thunk gør dispatch kan køre async
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
 // const store = createStore(rootReducer);
 

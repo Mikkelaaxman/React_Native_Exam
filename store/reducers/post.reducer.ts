@@ -1,48 +1,57 @@
 import Post from "../../entities/Post";
-import { FETCH_POSTS, ADD_POST, ADD_COMMENT, LIKE_COMMENT, DELETE_POST } from "../actions/post.actions";
+import {
+  FETCH_POSTS,
+  ADD_POST,
+  ADD_COMMENT,
+  LIKE_COMMENT,
+  DELETE_POST,
+} from "../actions/post.actions";
 
 interface ReduxState {
-    posts: Post[]
+  posts: any[];
 }
 
 const initialState: ReduxState = {
-    posts: [],
-}
+  posts: [],
+};
 
 interface ReduxAction {
-    type: string,
-    payload: Post
+  type: string;
+  payload: Post | any;
 }
 
 const postReducer = (state: ReduxState = initialState, action: ReduxAction) => {
-    switch (action.type) {
-        case ADD_POST:
-            // Laver en ny Post obj til post arrayet uden at mutere state
-            return {...state, posts: [...state.posts, action.payload]}
-        case ADD_COMMENT:
-/*             // find post position 
-            const postIndex = state.posts.findIndex((post) => post.id === action.payload.id);
-            const updatedPost = state.posts.find(post => post.id === action.payload.id);
-           // updatedPost?.comments.push(action.payload.newComment);
-            const updatedPosts = [...state.posts, action.payload.comments];
-            updatedPosts[postIndex] = updatedPost;
+  switch (action.type) {
+    case ADD_POST:
+      // Laver en ny Post obj til post arrayet uden at mutere
+      return { ...state, posts: [...state.posts, action.payload] };
+    case ADD_COMMENT:
+      // find post position
+      const postIndex = state.posts.findIndex(
+        (post) => post.id === action.payload.id
+      );
+      const updatedPost = state.posts.find(
+        (post) => post.id === action.payload.id
+      );
+      // updatedPost?.comments.push(action.payload.newComment);
+      const updatedPosts = [...state.posts, action.payload.comments];
+      updatedPosts[postIndex] = updatedPost;
 
-            return {
-                posts: updatedPosts,
-            }; */
-        case LIKE_COMMENT:
-            console.log("like comment reducer");
-        case FETCH_POSTS:
-            return { ...state,
-                posts: action.payload,
-            };
-        case DELETE_POST:
-/*             return { ...state, posts:
-                state.posts.filter(post => post.id !== action.payload)
-            } */
-        default:
-            return state;
-    }
+      return {
+        posts: updatedPosts,
+      };
+    case LIKE_COMMENT:
+      console.log("like comment reducer");
+    case FETCH_POSTS:
+      return { ...state, posts: action.payload };
+    case DELETE_POST:
+      return {
+        ...state,
+        posts: state.posts.filter((post) => post.id !== action.payload),
+      };
+    default:
+      return state;
+  }
 };
 
 export default postReducer;

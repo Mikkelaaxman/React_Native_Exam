@@ -1,5 +1,14 @@
 import React, { useState } from "react";
-import { Text, View, StyleSheet, FlatList, Image, Button, TextInput, TouchableHighlight } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  FlatList,
+  Image,
+  Button,
+  TextInput,
+  TouchableHighlight,
+} from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { useSelector, useDispatch } from "react-redux";
 import Ionicons from "react-native-vector-icons";
@@ -9,12 +18,15 @@ import Colors from "../constants/Colors";
 import * as postActions from "../store/actions/post.actions";
 import { likeComment } from "../store/actions/post.actions";
 
-const SinglePostScreen = (props:any) => {
+const SinglePostScreen = (props: any) => {
   const [inputText, setInputText] = useState("Add a comment");
   const [isFocused, setIsFocused] = useState(false);
   const postId = props.route.params.postId;
-  const userId = useSelector((state:any) => state.user.loggedInUser);
-  const selectedPost = useSelector((state:any) => state.posts.find((post:any) => post.id === postId));
+  console.log("post ID " + postId);
+  const userId = useSelector((state: any) => state.user.loggedInUser);
+  const selectedPost = useSelector((state: any) =>
+    state.posts.posts.find((post: any) => post.id === postId)
+  );
   const dispatch = useDispatch();
 
   const submitNewComment = () => {
@@ -22,7 +34,7 @@ const SinglePostScreen = (props:any) => {
     const newComment = {
       id: new Date().getTime().toString(),
       authorId: userId,
-      authorImageUrl: "https://randomuser.me/api/portraits/women/17.jpg",
+      authorImageUrl: "https://randomuser.me/api/portraits/women/7.jpg",
       body: inputText,
       date: date.toISOString(),
       likes: [],
@@ -51,11 +63,12 @@ const SinglePostScreen = (props:any) => {
             <Text style={styles.date}>{selectedPost.readableDate}</Text>
             <View style={styles.detailsWrapper}>
               <Text style={styles.likes}>
-{/*                 <Ionicons name="thumbs-up-sharp" size={14} color="#5050A5" />{" "}
- */}                {selectedPost.likes.length}
+                {/*                 <Ionicons name="thumbs-up-sharp" size={14} color="#5050A5" />{" "}
+                 */}{" "}
+                {selectedPost.likes.length}
               </Text>
               <Text style={styles.comments}>
-{/*                 <Ionicons
+                {/*                 <Ionicons
                   name="chatbox-ellipses-sharp"
                   size={14}
                   color="#5050A5"
@@ -73,7 +86,7 @@ const SinglePostScreen = (props:any) => {
               {selectedPost.likes.length} liked this
             </Text>
             <View>
-{/*               <Ionicons name="thumbs-up-sharp" size={16} color="#5050A5" />
+              {/*               <Ionicons name="thumbs-up-sharp" size={16} color="#5050A5" />
               <Button
                 title="Like"
                 color="#5050A5"
@@ -84,7 +97,7 @@ const SinglePostScreen = (props:any) => {
           </View>
         </View>
 
-        <FlatList
+{/*         <FlatList
           data={selectedPost.comments.filter((comment: any) => comment != null)}
           keyExtractor={(item) => item.id}
           renderItem={(itemData) => (
@@ -108,11 +121,11 @@ const SinglePostScreen = (props:any) => {
               postId={postId}
             />
           )}
-        />
+        /> */}
         <View style={styles.inputView}>
           <Image
             style={styles.inputImage}
-            source={{ uri: "https://randomuser.me/api/portraits/women/17.jpg" }}
+            source={{ uri: "https://randomuser.me/api/portraits/women/2.jpg" }}
           />
           <TextInput
             style={styles.input}
@@ -131,14 +144,15 @@ const SinglePostScreen = (props:any) => {
           {isFocused && (
             <View style={styles.buttonView}>
               <TouchableHighlight onPress={submitNewComment}>
-  {
-  <Text> submit </Text>
-  /*               <Ionicons
+                {
+                  <Text> submit </Text>
+                  /*               <Ionicons
                   style={styles.buttonElement}
                   name="chatbox-ellipses"
                   size={22}
                   color="#fff"
-                /> */}
+                /> */
+                }
               </TouchableHighlight>
             </View>
           )}
@@ -171,19 +185,16 @@ const styles = StyleSheet.create({
   },
   comments: {
     color: "#5050A5",
-    fontFamily: "OpenSans_700Bold",
     fontSize: 14,
   },
   likes: {
     marginRight: 20,
     color: "#5050A5",
-    fontFamily: "OpenSans_700Bold",
     fontSize: 14,
   },
   likesBig: {
     fontSize: 16,
     color: "#32305D",
-    fontFamily: "OpenSans_700Bold",
   },
   image: {
     width: "100%",
@@ -192,12 +203,10 @@ const styles = StyleSheet.create({
   headline: {
     fontSize: 26,
     color: "#333333",
-    fontFamily: "Teko_700Bold",
   },
   body: {
     fontSize: 16,
     color: "#333333",
-    fontFamily: "OpenSans_400Regular",
     lineHeight: 22,
   },
   topic: {
@@ -245,14 +254,11 @@ const styles = StyleSheet.create({
     paddingLeft: 30,
     paddingRight: 30,
     fontSize: 16,
-    fontFamily: "OpenSans_700Bold",
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
   },
-  button: {
-    fontFamily: "OpenSans_700Bold",
-  },
+  button: {},
   inputView: {
     flexDirection: "row",
     marginTop: 20,

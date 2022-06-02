@@ -1,26 +1,49 @@
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { useEffect, useState, useCallback } from "react";
-import { FlatList, ActivityIndicator, StyleSheet, Text, View, Button } from "react-native";
+import {
+  FlatList,
+  ActivityIndicator,
+  StyleSheet,
+  Text,
+  View,
+  Button,
+} from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 
 import PostItem from "../components/PostItem";
 import Colors from "../constants/Colors";
+import Post from "../entities/Post";
 import * as postsActions from "../store/actions/post.actions";
+import { StackParamList } from "../typings/navigations";
+
+type ScreenNavigationType = NativeStackNavigationProp<
+  StackParamList,
+  "AllPostsScreen"
+>;
 
 const AllPostsScreen = (props: any) => {
+  const navigation = useNavigation<ScreenNavigationType>();
+
   const dispatch = useDispatch();
+
+  //sætter state variabler 
   const [isLoading, setIsLoading] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [error, setError] = useState("");
-  const posts = useSelector((state: any) => state.posts.posts); //or just post? 
+
+  //henter posts fra state
+  const posts: Post[] = useSelector((state: any) => state.posts.posts); //or just post?
 
   //function for loading posts
   const loadPosts = useCallback(async () => {
     setError("");
     setIsRefreshing(true);
     try {
-      console.log("before fetch post")
+      console.log("before fetch post: " + posts);
       await dispatch(postsActions.fetchPosts());
-    } catch (error:any) {
+      console.log(posts);
+    } catch (error: any) {
       setError(error.message);
       console.log(error.message);
     }
@@ -30,7 +53,6 @@ const AllPostsScreen = (props: any) => {
   // fetch the posts anytime the user enters the page
   useEffect(() => {
     const willFocusSub = props.navigation.addListener("focus", loadPosts);
-
     // clean up the function
     return willFocusSub;
   }, [loadPosts, props.navigation]);
@@ -42,6 +64,7 @@ const AllPostsScreen = (props: any) => {
     loadPosts().then(() => {
       setIsLoading(false);
     });
+    console.log("posts now " + posts);
   }, [dispatch, loadPosts]);
 
   if (error) {
@@ -59,7 +82,7 @@ const AllPostsScreen = (props: any) => {
         <ActivityIndicator size="large" color={Colors.highlight} />
       </View>
     );
-  } 
+  }
 
   return (
     <FlatList
@@ -78,7 +101,10 @@ const AllPostsScreen = (props: any) => {
           authorName={itemData.item.authorName}
           authorImageUrl={itemData.item.authorImageUrl}
           onViewDetail={() => {
-            props.navigation.navigate("SinglePostScreen", { postId: itemData.item.id, postTitle: itemData.item.title });
+            props.navigation.navigate("SinglePostScreen", {
+              postId: itemData.item.id,
+              postTitle: itemData.item.title,
+            });
           }}
         />
       )}

@@ -37,8 +37,6 @@ export default function ChatScreen() {
     roomId = route[id];
   }
 
-  console.log("Route ID is " + roomId);
-
   const dispatch = useDispatch();
 
   const [value, onChangeText] = useState("Write message");
@@ -48,21 +46,16 @@ export default function ChatScreen() {
     (state: RootState) => state.chat.chatrooms
   ).find((room: any) => room.id == roomId).messages;
 
-  console.log(chatMessages);
   const loggedInUser = useSelector(
     (state: RootState) => state.user.loggedInUser
   );
 
   //Laver ny besked og dispatcher til chat actions 
   const handleSend = () => {
-    const message = new Message(loggedInUser.email, value, new Date());
+    const message = new Message(loggedInUser.email, value, new Date(), chatMessages.length);
     dispatch(newChatMessage(roomId, message));
-  };
-  
-  useEffect(() => {
-    dispatch(fetchChatrooms());
-  }, []);
 
+  };
 
   return (
     <View style={styles.container}>

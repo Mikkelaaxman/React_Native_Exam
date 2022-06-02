@@ -33,21 +33,18 @@ export default function LoginScreen() {
 
       try {
 
-        expiration = new Date(JSON.stringify(await SecureStore.getItemAsync("expiration"))); //cant parse, only stringify?
+        expiration = new Date(JSON.stringify(await SecureStore.getItemAsync("expiration")));
 
         if (expiration < new Date()) { // then it is expired
           console.log("refresh token");
           refreshTokenString = await SecureStore.getItemAsync("refreshToken");
           dispatch(refreshToken(refreshTokenString));
         }
-        console.log("no refresh token");
 
         userToken = await SecureStore.getItemAsync('userToken');
         user = await SecureStore.getItemAsync('user'); //JSON.parse?
 
-         console.log(userToken);
-         console.log(user);
-         console.log(expiration);
+
       } catch (e) {
         // Restoring token failed
         console.log("restore token failed");

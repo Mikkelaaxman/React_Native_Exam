@@ -9,16 +9,11 @@ export const DELETE_POST = "DELETE_POST";
 
 export const fetchPosts = () => {
   return async (dispatch: any, getState: any) => {
-    const token = getState().user.idToken;
-    console.log("userID" + token.localId);
-
-    // const userId = "u1";
     try {
       // async. All users allowed to read.
       const response = await fetch(
         "https://reactproject-a0334-default-rtdb.europe-west1.firebasedatabase.app/posts.json"
       ); //URL to posts
-      console.log(response);
       if (!response.ok) {
         const errorResponseData = await response.json();
         const errorId = errorResponseData.error.message;
@@ -29,31 +24,30 @@ export const fetchPosts = () => {
         throw new Error(message);
       }
       const responseData = await response.json();
-      const loadedPosts = [];
-      
-      for (const key in responseData) {
-        console.log("fetching posts: " + responseData[key]);
-        const obj = responseData[key];
 
+      const loadedPosts = [];
+
+      for (const key in responseData) {
+        const obj = responseData[key];
+        console.log(obj.authorImageUrl)
         loadedPosts.push(
           new Post(
             obj.authorImageUrl,
             obj.authorName,
-            obj.title,
-            new Date(obj.date),
             obj.body,
             obj.category,
+            obj.comments,
+            new Date(obj.date),
             obj.imageUrl,
             obj.likes,
-            obj.comments,
-            key,
-            
+            obj.title,
+            key
           )
         );
-        console.log("Loaded Post added: " + obj.title);
-
       }
-      dispatch({ type: FETCH_POSTS, posts: loadedPosts });
+      console.log("Post object added:");
+      console.log(loadedPosts);
+      dispatch({ type: FETCH_POSTS, payload: loadedPosts }); //HER VAR FEJLEN!! payload IKKE posts
     } catch (error) {
       throw error;
     }
@@ -68,6 +62,8 @@ export const addComment = (newComment: any, postId: string) => {
 
       // find post we are editing, get comments array and add a new comment to it
       const post = posts.find((post: any) => post.id == postId);
+          
+      
       post.comments.push(newComment);
       const jComments = JSON.stringify({ comments: post.comments });
 
@@ -89,7 +85,7 @@ export const addComment = (newComment: any, postId: string) => {
         console.log("response is not ok");
         throw new Error(message);
       }
-      // dispatch({ type: ADD_COMMENT, newComment: newComment, postId: postId });
+      dispatch({ type: ADD_COMMENT, newComment: newComment, postId: postId });
     } catch (error) {
       throw error;
     }
@@ -198,7 +194,7 @@ export const dislikeComment = (
 export const deletePost = (id: string) => {
   return async (dispatch: any, state: any) => {
     // const userId = "u1";
-    try {
+/*     try {
       // async
       const response = await fetch(
         "https://reactproject-a0334-default-rtdb.europe-west1.firebasedatabase.app/posts"
@@ -230,12 +226,12 @@ export const deletePost = (id: string) => {
             key
           )
         );
-      }
-
+      } */
+/* 
       dispatch({ type: DELETE_POST, payload: loadedPosts });
     } catch (error) {
       throw error;
-    }
+    } */
   };
 };
 

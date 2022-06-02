@@ -3,10 +3,11 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { StackParamList } from "../typings/navigations";
 import React, { useEffect, useState } from 'react';
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Button, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { rehydrateUser, signup } from '../store/actions/user.actions';
 import DefaultStyles from '../constants/DefaultStyles';
+import Colors from '../constants/Colors';
 
 type ScreenNavigationType = NativeStackNavigationProp<
     StackParamList,
@@ -31,7 +32,7 @@ export default function SignupScreen() {
         if (user) {
             // then we have a priv. login
             // restore the signup by updating the redux store based on user and token.
-            dispatch(rehydrateUser(user, token!)) //hvad er ! her. not any?
+            dispatch(rehydrateUser(user, token!)) //hvad er ! her. not null?
         }
     }
 
@@ -49,6 +50,7 @@ export default function SignupScreen() {
           autoCompleteType="email"
           onChangeText={setEmail}
           style={DefaultStyles.textInput}
+          
         />
         <TextInput
           value={password}
@@ -61,19 +63,39 @@ export default function SignupScreen() {
           title="Signup"
           onPress={() => dispatch(signup(email, password))}
         />
-        <Button
-          title="Already signed up? Log in here"
+        
+        <Pressable
+          style={styles.button}
           onPress={() => navigation.navigate("LoginScreen")}
-        />
+        >
+          <Text style={styles.text}>{"Already signed up? Click here."}</Text>
+        </Pressable>
       </View>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-})
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  button: {
+    alignItems: "center",
+    marginTop: 10,
+    justifyContent: "center",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: "white",
+  },
+  text: {
+    fontSize: 16,
+    lineHeight: 21,
+    fontWeight: "bold",
+    letterSpacing: 0.25,
+    color: "black",
+  },
+});
